@@ -56,7 +56,9 @@ fn main() {
         .collect();
     println!("{:?}", search_urls);
 
-    if webbrowser::open("https://example.com").is_ok() {
-        println!("Browser opened");
+    for url in search_urls {
+        if webbrowser::open(&url).is_ok() {
+            println!("Browser opened");
+        }
     }
 }
