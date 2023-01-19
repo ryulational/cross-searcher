@@ -44,8 +44,8 @@ fn main() {
     };
 
     let engines: Vec<SearchEngine> = vec![bing, duckduckgo, google, yahoo];
-    let items: Vec<String> = engines.clone().into_iter().map(|x| x.name).collect();
-    let selections: Vec<usize> = MultiSelect::new().items(&items).interact().unwrap();
+    let engine_names: Vec<String> = engines.clone().into_iter().map(|x| x.name).collect();
+    let selections: Vec<usize> = MultiSelect::new().items(&engine_names).interact().unwrap();
     let selected_engines: Vec<&SearchEngine> =
         selections.into_iter().map(|i| &engines[i]).collect();
     println!("{:?}", selected_engines);
