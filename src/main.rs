@@ -1,3 +1,5 @@
+mod search_engines;
+
 use clap::Parser;
 use dialoguer::MultiSelect;
 use webbrowser;
@@ -8,45 +10,15 @@ struct Cli {
     query: String,
 }
 
-#[derive(Clone, Debug)]
-struct SearchEngine {
-    name: String,
-    pattern: String,
-    divider: String,
-}
-
 fn main() {
     let cli = Cli::parse();
     println!("Your search query: {:?}", cli.query);
 
-    let bing: SearchEngine = SearchEngine {
-        name: String::from("Bing"),
-        pattern: String::from("https://www.bing.com/search?q="),
-        divider: String::from(" "),
-    };
+    let engines: Vec<search_engines::SearchEngine> = search_engines::get_search_engines();
 
-    let duckduckgo: SearchEngine = SearchEngine {
-        name: String::from("DuckDuckgo"),
-        pattern: String::from("https://duckduckgo.com/?q="),
-        divider: String::from("+"),
-    };
-
-    let google = SearchEngine {
-        name: String::from("Google"),
-        pattern: String::from("https://www.google.com/search?q="),
-        divider: String::from(" "),
-    };
-
-    let yahoo: SearchEngine = SearchEngine {
-        name: String::from("Yahoo!"),
-        pattern: String::from("https://search.yahoo.com/search?p="),
-        divider: String::from(" "),
-    };
-
-    let engines: Vec<SearchEngine> = vec![bing, duckduckgo, google, yahoo];
     let engine_names: Vec<String> = engines.clone().into_iter().map(|x| x.name).collect();
     let selections: Vec<usize> = MultiSelect::new().items(&engine_names).interact().unwrap();
-    let selected_engines: Vec<&SearchEngine> =
+    let selected_engines: Vec<&search_engines::SearchEngine> =
         selections.into_iter().map(|i| &engines[i]).collect();
     println!("{:?}", selected_engines);
     let search_terms: Vec<&str> = cli.query.split(" ").collect();
