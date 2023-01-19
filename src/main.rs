@@ -50,11 +50,11 @@ fn main() {
         selections.into_iter().map(|i| &engines[i]).collect();
     println!("{:?}", selected_engines);
     let search_terms: Vec<&str> = cli.query.split(" ").collect();
-    let search_patterns: Vec<String> = selected_engines
+    let search_urls: Vec<String> = selected_engines
         .into_iter()
-        .map(|e| search_terms.join(&e.divider))
+        .map(|e| [e.clone().pattern, search_terms.join(&e.divider)].join(""))
         .collect();
-    println!("{:?}", search_patterns);
+    println!("{:?}", search_urls);
 
     if webbrowser::open("https://example.com").is_ok() {
         println!("Browser opened");
