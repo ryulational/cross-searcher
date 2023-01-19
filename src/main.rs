@@ -8,6 +8,7 @@ struct Cli {
     query: String,
 }
 
+#[derive(Clone, Debug)]
 struct SearchEngine {
     name: String,
     pattern: String,
@@ -43,9 +44,11 @@ fn main() {
     };
 
     let engines: Vec<SearchEngine> = vec![bing, duckduckgo, google, yahoo];
-    let items: Vec<String> = engines.into_iter().map(|x| x.name).collect();
-    let search: Vec<usize> = MultiSelect::new().items(&items).interact().unwrap();
-    println!("{:?}", search);
+    let items: Vec<String> = engines.clone().into_iter().map(|x| x.name).collect();
+    let selections: Vec<usize> = MultiSelect::new().items(&items).interact().unwrap();
+    let selected_engines: Vec<&SearchEngine> =
+        selections.into_iter().map(|i| &engines[i]).collect();
+    println!("{:?}", selected_engines);
 
     if webbrowser::open("https://example.com").is_ok() {
         println!("Browser opened");
