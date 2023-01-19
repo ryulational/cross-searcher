@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.1.1", features = ["derive"] }
 dialoguer = "0.10.3"
+webbrowser = "0.8.4"

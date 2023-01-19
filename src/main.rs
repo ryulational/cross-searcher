@@ -1,5 +1,6 @@
 use clap::Parser;
 use dialoguer::MultiSelect;
+use webbrowser;
 
 #[derive(Parser)]
 struct Cli {
@@ -13,4 +14,8 @@ fn main() {
     let items = vec!["Bing", "DuckDuckGo", "Google", "Yahoo!"];
     let search: Vec<usize> = MultiSelect::new().items(&items).interact().unwrap();
     println!("{:?}", search);
+
+    if webbrowser::open("https://example.com").is_ok() {
+        println!("Browser opened");
+    }
 }
