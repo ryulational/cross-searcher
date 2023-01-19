@@ -11,6 +11,7 @@ struct Cli {
 struct SearchEngine {
     name: String,
     pattern: String,
+    divider: String,
 }
 
 fn main() {
@@ -20,21 +21,25 @@ fn main() {
     let bing: SearchEngine = SearchEngine {
         name: String::from("Bing"),
         pattern: String::from("https://www.bing.com/search?q="),
+        divider: String::from(" "),
     };
 
     let duckduckgo: SearchEngine = SearchEngine {
         name: String::from("DuckDuckgo"),
         pattern: String::from("https://duckduckgo.com/?q="),
+        divider: String::from("+"),
     };
 
     let google = SearchEngine {
         name: String::from("Google"),
         pattern: String::from("https://www.google.com/search?q="),
+        divider: String::from(" "),
     };
 
     let yahoo: SearchEngine = SearchEngine {
         name: String::from("Yahoo!"),
         pattern: String::from("https://search.yahoo.com/search?p="),
+        divider: String::from(" "),
     };
 
     let engines: Vec<SearchEngine> = vec![bing, duckduckgo, google, yahoo];
