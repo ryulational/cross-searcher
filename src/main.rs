@@ -1,3 +1,12 @@
+use clap::Parser;
+
+#[derive(Parser)]
+struct Cli {
+    #[arg(group = "input")]
+    query: String,
+}
+
 fn main() {
-    println!("Hello, world!");
+    let cli = Cli::parse();
+    println!("Your search query: {:?}", cli.query);
 }
