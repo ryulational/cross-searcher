@@ -1,5 +1,3 @@
-use crate::search_engines;
-
 #[derive(Clone, Debug)]
 pub struct SearchEngine {
     pub name: String,
