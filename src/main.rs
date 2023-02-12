@@ -12,7 +12,7 @@ struct Cli {
 
 fn main() {
     let cli = Cli::parse();
-    println!("Your search query: {:?}", cli.query);
+    println!("Your search query: {}", cli.query);
 
     let engines: Vec<search_engines::SearchEngine> = search_engines::get_search_engines();
 
