@@ -26,11 +26,10 @@ fn main() {
         .into_iter()
         .map(|e| [e.clone().pattern, search_terms.join(&e.divider)].join(""))
         .collect();
-    println!("{:?}", search_urls);
 
     for url in search_urls {
         if webbrowser::open(&url).is_ok() {
-            println!("Browser opened");
+            println!("Browser opened: {}", &url);
         }
     }
 }
