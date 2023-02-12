@@ -10,6 +10,17 @@ struct Cli {
     query: String,
 }
 
+fn generate_search_urls(search_query: String, selected_engines: Vec<&search_engines::SearchEngine>) -> Vec<String> {
+    let search_terms: Vec<&str> = search_query.split(" ").collect();
+
+    let search_urls: Vec<String> = selected_engines
+        .into_iter()
+        .map(|e| [e.clone().pattern, search_terms.join(&e.divider)].join(""))
+        .collect();
+
+    search_urls
+}
+
 fn main() {
     let cli = Cli::parse();
     println!("Your search query: {}", cli.query);
@@ -21,11 +32,8 @@ fn main() {
     let selected_engines: Vec<&search_engines::SearchEngine> =
         selections.into_iter().map(|i| &engines[i]).collect();
     println!("{:?}", selected_engines);
-    let search_terms: Vec<&str> = cli.query.split(" ").collect();
-    let search_urls: Vec<String> = selected_engines
-        .into_iter()
-        .map(|e| [e.clone().pattern, search_terms.join(&e.divider)].join(""))
-        .collect();
+
+    let search_urls: Vec<String> = generate_search_urls(cli.query, selected_engines);
 
     for url in search_urls {
         if webbrowser::open(&url).is_ok() {
